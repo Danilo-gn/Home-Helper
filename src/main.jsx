@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path="/Home-Helper" element={<App />}>
+        <Route path="/" element={<App />}>
           <Route index element={<Rotina />} />
           <Route path="financas" element={<Financas />} />
           <Route path="eventos" element={<Eventos />} />
