@@ -14,7 +14,7 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/Home-Helper" element={<App />}>
-          <Route path="rotina" index element={<Rotina />} />
+          <Route index element={<Rotina />} />
           <Route path="financas" element={<Financas />} />
           <Route path="eventos" element={<Eventos />} />
         </Route>
