@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import Rotina from './pages/';
+import Rotina from './pages/Rotina';
 import Financas from './pages/Financas';
 import Eventos from './pages/Eventos';
 import "./index.css"
