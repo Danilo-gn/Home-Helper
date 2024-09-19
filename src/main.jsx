@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route path="/Home-Helper" element={<App />}>
           <Route index element={<Rotina />} />
           <Route path="financas" element={<Financas />} />
           <Route path="eventos" element={<Eventos />} />
