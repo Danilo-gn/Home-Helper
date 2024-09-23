@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import Rotina from './pages/Rotina';
-import Financas from './pages/Financas';
-import Eventos from './pages/Eventos';
+import Rotina from './Rotina';
+import Financas from './Financas';
+import Eventos from './Eventos';
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
