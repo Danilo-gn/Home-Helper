@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import Rotina from './Rotina';
-import Financas from './Financas';
-import Eventos from './Eventos';
+import Rotina from './pages/Rotina';
+import Financas from './pages/Financas';
+import Eventos from './pages/Eventos';
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <HashRouter>
+    <HashRouter basename="/Home-Helper">
       <Routes>
-        <Route path="/Home-Helper" element={<App />}>
+        <Route path="/" element={<App />}>
           <Route index element={<Rotina />} />
           <Route path="financas" element={<Financas />} />
           <Route path="eventos" element={<Eventos />} />
