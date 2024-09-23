@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Rotina = () => {
-  
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const savedItems = localStorage.getItem('rotinaItems');
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
   const [inputValue, setInputValue] = useState('');
   const [inputTime, setInputTime] = useState('');
   const [editIndex, setEditIndex] = useState(null);
@@ -12,6 +14,10 @@ const Rotina = () => {
     const timeB = b.time.split(':').map(Number);
     return timeA[0] * 60 + timeA[1] - (timeB[0] * 60 + timeB[1]);
   };
+
+  useEffect(() => {
+    localStorage.setItem('rotinaItems', JSON.stringify(items));
+  }, [items]);
 
   const handleAddItem = () => {
     if (!inputValue || !inputTime) {
@@ -28,12 +34,11 @@ const Rotina = () => {
       setItems(updatedItems);
       setEditIndex(null);
     } else {
-      setItems([...items, newItem]);
+      setItems([...items, newItem].sort(sortItems));
     }
 
     setInputValue('');
     setInputTime('');
-    setItems((prevItems) => [...prevItems].sort(sortItems));
   };
 
   const handleEditItem = (index) => {
@@ -54,45 +59,49 @@ const Rotina = () => {
     setItems(updatedItems);
   };
 
-  return <body id="" class="w-screen h-5/6 bg-gradient-to-t from-black to-violet-950 flex flex-wrap justify-center items-center">
-  <div id="" class="flex flex-col items-center -translate-y-12 rounded-3xl h-5/6 w-4/6 bg-indigo-800 mx-3">
-  <h1 class="bg-indigo-950 w-full h-12 flex flex-col items-center justify-center rounded-t-3xl text-white mb-3">Rotina</h1>
-    <div class="my-3">
-      <input 
-          type="text" 
-          placeholder="Sua próxima atividade..."
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)} 
-          class="h-6 "
-        />
-      <input 
-          type="time" 
-          value={inputTime} 
-          onChange={(e) => setInputTime(e.target.value)} 
-          class="h-6"
-        />
-    </div>
-    <button onClick={handleAddItem} class="my-3">
-      {editIndex !== null ? 'Editar' : 'Adicionar'}
-    </button>
-    <ul>
-      {items.map((item, index) => (
-        <li key={index}>
+  return (
+    <div className="w-screen h-5/6 bg-gradient-to-t from-black to-violet-950 flex flex-wrap justify-center items-center">
+      <div className="flex flex-col items-center -translate-y-12 rounded-3xl h-5/6 w-4/6 bg-indigo-800 mx-3">
+        <h1 className="bg-indigo-950 w-full h-12 flex flex-col items-center justify-center rounded-t-3xl text-white mb-3">Rotina</h1>
+        <div className="my-3">
           <input 
-            type="checkbox" 
-            checked={item.done} 
-            onChange={() => handleToggleDone(index)} 
+            id="atividade" 
+            type="text" 
+            placeholder="Sua próxima atividade..."
+            value={inputValue} 
+            onChange={(e) => setInputValue(e.target.value)} 
+            className="h-6"
           />
-          <span style={{ textDecoration: item.done ? 'line-through' : 'none' }} class="mx-1">
-            {item.time} - {item.text}
-          </span>
-          <button onClick={() => handleEditItem(index)} class="mx-3">Editar</button>
-          <button onClick={() => handleDeleteItem(index)} class="mx-3">Excluir</button>
-        </li>
-      ))}
-    </ul>
-  </div>
-</body>;
+          <input 
+            id="hora" 
+            type="time" 
+            value={inputTime} 
+            onChange={(e) => setInputTime(e.target.value)} 
+            className="h-6"
+          />
+        </div>
+        <button onClick={handleAddItem} className="my-3">
+          {editIndex !== null ? 'Editar' : 'Adicionar'}
+        </button>
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>
+              <input 
+                type="checkbox" 
+                checked={item.done} 
+                onChange={() => handleToggleDone(index)} 
+              />
+              <span style={{ textDecoration: item.done ? 'line-through' : 'none' }} className="mx-1">
+                {item.time} - {item.text}
+              </span>
+              <button onClick={() => handleEditItem(index)} className="mx-3">Editar</button>
+              <button onClick={() => handleDeleteItem(index)} className="mx-3">Excluir</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
 export default Rotina;
